@@ -1,15 +1,9 @@
-type TitleProps = {
-	title: string;
-	size?: 'small' | 'medium' | 'large';
-};
-
-export default function Title({ title, size }: TitleProps) {
-	const textSize =
-		size === 'large'
-			? 'text-4xl'
-			: size === 'medium'
-			? 'text-2xl'
-			: 'text-xl';
-
-	return <h1 className={`font-bold ${textSize} text-grey`}>{title}</h1>;
+export default function Title() {
+	return (
+		<header className="flex items-center justify-center">
+			<span className="m-3 sm:text-6xl font-bold text-red-400 text-4xl">Coke</span>
+			<span className="m-3 sm:text-4xl text-white">Vs</span>
+			<span className="m-3 sm:text-6xl font-bold text-blue-400 text-4xl">Pepsi</span>
+		</header>
+	);
 }
