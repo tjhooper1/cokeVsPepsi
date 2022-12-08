@@ -7,8 +7,18 @@ import VoteButton from './components/VoteButton';
 import { useVotes } from './context/VoteContext';
 
 function App() {
-	const { state, dispatch } = useVotes();
-	console.log(state);
+	const { state } = useVotes();
+	const { cokeVotes, pepsiVotes, totalVotes } = state;
+
+	//  calculate percentage of votes for each drink
+	function drinkVotes() {
+		const cokePercent = Math.round((cokeVotes / totalVotes) * 100) || 0;
+		const pepsiPercent = Math.round((pepsiVotes / totalVotes) * 100) || 0;
+		return { cokePercent, pepsiPercent };
+	}
+
+	const { cokePercent, pepsiPercent } = drinkVotes();
+	
 	return (
 		<div className="h-screen w-screen bg-white bg-gradient-to-r from-coke to-pepsi">
 			<Title />
@@ -18,8 +28,16 @@ function App() {
 					<ImageContainer alt="pepsi" src={PepsiImage} />
 				</section>
 				<section>
-					<PollResults name="Coke" percentage={70} />
-					<PollResults name="Pepsi" percentage={40} />
+					<PollResults
+						voteCount={cokeVotes}
+						name="Coke"
+						percentage={cokePercent}
+					/>
+					<PollResults
+						voteCount={pepsiVotes}
+						name="Pepsi"
+						percentage={pepsiPercent}
+					/>
 				</section>
 				<section>
 					<div className="m-auto  mt-16 flex w-10/12 flex-col items-center justify-between gap-6 sm:mt-12 sm:flex-row">
